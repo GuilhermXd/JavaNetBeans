@@ -5,16 +5,35 @@
  */
 package view;
 
+import control.VeiculoControl;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Veiculo;
+
 /**
  *
  * @author aluno
  */
 public class frmVeiculo extends javax.swing.JFrame {
 
+    private VeiculoControl vControl;
+    private DefaultTableModel dados;
     /**
      * Creates new form frmVeiculo
      */
     public frmVeiculo() {
+        vControl = new VeiculoControl();
+        dados = new DefaultTableModel();
+        dados.addColumn("MODELO");
+        dados.addColumn("MARCA");
+        dados.addColumn("ANO");
+        dados.addColumn("PLACA");
+        dados.addColumn("COR");
+
         initComponents();
     }
 
@@ -37,7 +56,11 @@ public class frmVeiculo extends javax.swing.JFrame {
         txtAno = new javax.swing.JTextField();
         txtPlaca = new javax.swing.JTextField();
         txtCor = new javax.swing.JTextField();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        btnCadastra = new javax.swing.JToggleButton();
+        btnExcluir = new javax.swing.JButton();
+        btnExibir = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblVeiculo = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,7 +79,40 @@ public class frmVeiculo extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Cor");
 
-        jToggleButton1.setText("jToggleButton1");
+        btnCadastra.setText("Cadastrar");
+        btnCadastra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastraActionPerformed(evt);
+            }
+        });
+
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        btnExibir.setText("Exibir");
+        btnExibir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExibirActionPerformed(evt);
+            }
+        });
+
+        tblVeiculo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Modelo", "Marca", "Ano", "Placa", "Cor"
+            }
+        ));
+        jScrollPane1.setViewportView(tblVeiculo);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,8 +145,15 @@ public class frmVeiculo extends javax.swing.JFrame {
                                 .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(154, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnCadastra, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnExibir, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,12 +173,56 @@ public class frmVeiculo extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(txtCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
-                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(400, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnCadastra, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnExibir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(313, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCadastraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastraActionPerformed
+        String modelo = txtModelo.getText();
+        String marca = txtModelo.getText();
+        int ano = Integer.parseInt(txtAno.getText());
+        String placa = txtPlaca.getText();
+        String cor = txtCor.getText();
+        try {
+           vControl.cadastrar(placa, modelo, marca, ano, cor);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showMessageDialog(this, "ta cadasr");
+
+        
+        btnExibirActionPerformed(evt);        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCadastraActionPerformed
+  
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnExibirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExibirActionPerformed
+         ArrayList<Veiculo> listPd = null;
+        try {
+            listPd = vControl.mostrar();
+        } catch (SQLException ex) {
+            Logger.getLogger(frmVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dados.setNumRows(0);
+        for (Veiculo at : listPd){
+            dados.addRow(new Object[]{ at.getModelo(), at.getMarca(), at.getAno(), at.getPlaca(), at.getCor()});
+                    }
+        tblVeiculo.setModel(dados);
+    }//GEN-LAST:event_btnExibirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,12 +260,16 @@ public class frmVeiculo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnCadastra;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnExibir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblVeiculo;
     private javax.swing.JTextField txtAno;
     private javax.swing.JTextField txtCor;
     private javax.swing.JTextField txtMarca;

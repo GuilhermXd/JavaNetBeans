@@ -29,8 +29,8 @@ public class VeiculoDAO {
                 smt.setInt(1, v.getAno());
                 smt.setString(2, v.getMarca());
                 smt.setString(3, v.getModelo());
-                smt.setString(3, v.getPlaca());
-                smt.setString(3, v.getCor());
+                smt.setString(4, v.getPlaca());
+                smt.setString(5, v.getCor());
 
                 smt.execute();
                 smt.close();
