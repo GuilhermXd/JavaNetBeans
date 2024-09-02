@@ -23,7 +23,7 @@ public class VeiculoControl {
     }
     
     public void cadastrar(String placa, String modelo, String marca, int ano, String cor) throws SQLException, ClassNotFoundException {
-        Veiculo v = new Veiculo(placa, modelo, marca, ano, cor);
+        Veiculo v = new Veiculo(modelo, marca, ano, placa, cor);
         VeiculoDAO vDAO = new VeiculoDAO();
         vDAO.InserirVeic(v);
     }
@@ -32,6 +32,17 @@ public class VeiculoControl {
         
         VeiculoDAO vDAO = new VeiculoDAO();
         listV = vDAO.buscaVeiculos();
+        return listV;
+    }
+    public ArrayList<Veiculo> mostrarAno(int ano) throws SQLException, ClassNotFoundException{
+        VeiculoDAO vDAO = new VeiculoDAO();
+        listV = vDAO.buscaVeiculosAno(ano);
+        return listV;
+    }
+    
+    public ArrayList<Veiculo> mostrarMarca(String marca) throws SQLException, ClassNotFoundException{
+        VeiculoDAO vDAO = new VeiculoDAO();
+        listV = vDAO.buscaVeiculosMarca(marca);
         return listV;
     }
     

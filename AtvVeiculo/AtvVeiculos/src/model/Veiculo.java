@@ -16,11 +16,11 @@ public class Veiculo {
     int ano;
     String cor;
 
-    public Veiculo(String placa, String modelo, String marca, int ano, String cor) {
-        this.placa = placa;
+    public Veiculo(String modelo, String marca, int ano, String placa, String cor) {
         this.modelo = modelo;
         this.marca = marca;
         this.ano = ano;
+        this.placa = placa;
         this.cor = cor;
     }
 

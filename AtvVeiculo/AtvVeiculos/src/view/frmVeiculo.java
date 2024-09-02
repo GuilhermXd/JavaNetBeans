@@ -61,6 +61,12 @@ public class frmVeiculo extends javax.swing.JFrame {
         btnExibir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVeiculo = new javax.swing.JTable();
+        btnFiltro1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        btnFiltro2 = new javax.swing.JButton();
+        txtFAno = new javax.swing.JTextField();
+        txtFMarca = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,6 +120,26 @@ public class frmVeiculo extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblVeiculo);
 
+        btnFiltro1.setText("Filtrar");
+        btnFiltro1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltro1ActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Ano:");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("Marca:");
+
+        btnFiltro2.setText("Filtrar");
+        btnFiltro2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltro2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,7 +178,21 @@ public class frmVeiculo extends javax.swing.JFrame {
                                 .addGap(27, 27, 27)
                                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnExibir, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnExibir, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnFiltro2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnFiltro1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtFAno)
+                                    .addComponent(txtFMarca, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))))))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -173,13 +213,23 @@ public class frmVeiculo extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(txtCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnCadastra, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnExibir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCadastra, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExibir, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(313, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnFiltro1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtFAno, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(62, 62, 62)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(btnFiltro2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
         pack();
@@ -187,7 +237,7 @@ public class frmVeiculo extends javax.swing.JFrame {
 
     private void btnCadastraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastraActionPerformed
         String modelo = txtModelo.getText();
-        String marca = txtModelo.getText();
+        String marca = txtMarca.getText();
         int ano = Integer.parseInt(txtAno.getText());
         String placa = txtPlaca.getText();
         String cor = txtCor.getText();
@@ -205,7 +255,36 @@ public class frmVeiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastraActionPerformed
   
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
+       int linhaSelecionada = tblVeiculo.getSelectedRow();
+       
+       if(linhaSelecionada == -1){
+         JOptionPane.showMessageDialog(null, "Não há nenhum veiculo selecionado");
+       }
+       else {
+        int resp = JOptionPane.showConfirmDialog(this,"Deseja confirmar?", "Confirma", JOptionPane.YES_NO_OPTION);        
+       
+      if(resp == JOptionPane.YES_OPTION){
+          
+          String placa = tblVeiculo.getValueAt(linhaSelecionada, 3).toString();
+            try {
+                vControl.remover(placa);
+            } catch (SQLException ex) {
+                Logger.getLogger(frmVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(frmVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+      }
+          
+          }
+       /* String placa = txtExcluir.getText();
+        try {
+            vControl.remover(placa);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+        }    */ 
+       btnExibirActionPerformed(evt);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnExibirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExibirActionPerformed
@@ -223,6 +302,41 @@ public class frmVeiculo extends javax.swing.JFrame {
                     }
         tblVeiculo.setModel(dados);
     }//GEN-LAST:event_btnExibirActionPerformed
+
+    private void btnFiltro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltro1ActionPerformed
+        
+        ArrayList<Veiculo> listPd = null;
+        int ano = Integer.parseInt(txtFAno.getText());
+        try {
+            listPd = vControl.mostrarAno(ano);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dados.setNumRows(0);
+        for (Veiculo at : listPd){
+            dados.addRow(new Object[]{ at.getModelo(), at.getMarca(), at.getAno(), at.getPlaca(), at.getCor()});
+                    }
+        tblVeiculo.setModel(dados);
+    }//GEN-LAST:event_btnFiltro1ActionPerformed
+
+    private void btnFiltro2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltro2ActionPerformed
+        ArrayList<Veiculo> listPd = null;
+        String marca = txtFMarca.getText();
+        try {
+            listPd = vControl.mostrarMarca(marca);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          dados.setNumRows(0);
+        for (Veiculo at : listPd){
+            dados.addRow(new Object[]{ at.getModelo(), at.getMarca(), at.getAno(), at.getPlaca(), at.getCor()});
+                    }
+        tblVeiculo.setModel(dados);
+    }//GEN-LAST:event_btnFiltro2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -263,15 +377,21 @@ public class frmVeiculo extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnCadastra;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnExibir;
+    private javax.swing.JButton btnFiltro1;
+    private javax.swing.JButton btnFiltro2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblVeiculo;
     private javax.swing.JTextField txtAno;
     private javax.swing.JTextField txtCor;
+    private javax.swing.JTextField txtFAno;
+    private javax.swing.JTextField txtFMarca;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtPlaca;

@@ -63,11 +63,62 @@ public class VeiculoDAO {
         String placa = rs.getString("PLACA");
         String cor = rs.getString("COR");
        
-        Veiculo v = new Veiculo(placa, modelo,marca, ano, cor);
+        Veiculo v = new Veiculo(modelo, marca,ano, placa, cor);
         lista.add(v);
     }
     smt.close();
     con.close();
     return lista;
     }
+    
+    public ArrayList<Veiculo> buscaVeiculosAno(int ano) throws SQLException, ClassNotFoundException{
+    ResultSet rs;
+    ArrayList<Veiculo> lista = new ArrayList();
+    con = new Conexao().getConnection();
+    String sql = "SELECT * FROM VEICULO WHERE ANO = ?";
+    PreparedStatement smt = con.prepareStatement(sql);
+    smt.setInt(1, ano);
+    rs = smt.executeQuery();
+    while(rs.next())
+    {
+        //String placa, String modelo, String marca, int ano, String cor
+        int anoo = rs.getInt("ANO");
+        String marca = rs.getString("MARCA");
+        String modelo = rs.getString("MODELO");
+        String placa = rs.getString("PLACA");
+        String cor = rs.getString("COR");
+       
+        Veiculo v = new Veiculo(modelo, marca,anoo, placa, cor);
+        lista.add(v);
+    }
+    smt.close();
+    con.close();
+    return lista;
+    }
+   
+    public ArrayList<Veiculo> buscaVeiculosMarca(String marca) throws SQLException, ClassNotFoundException{
+    ResultSet rs;
+    ArrayList<Veiculo> lista = new ArrayList();
+    con = new Conexao().getConnection();
+    String sql = "SELECT * FROM VEICULO WHERE MARCA = ?";
+    PreparedStatement smt = con.prepareStatement(sql);
+    smt.setString(1,marca);
+    rs = smt.executeQuery();
+    while(rs.next())
+    {
+        //String placa, String modelo, String marca, int ano, String cor
+        int anoo = rs.getInt("ANO");
+        String marcaa = rs.getString("MARCA");
+        String modelo = rs.getString("MODELO");
+        String placa = rs.getString("PLACA");
+        String cor = rs.getString("COR");
+       
+        Veiculo v = new Veiculo(modelo, marca,anoo, placa, cor);
+        lista.add(v);
+    }
+    smt.close();
+    con.close();
+    return lista;
+    }
+  
 }
